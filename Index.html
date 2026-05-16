@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Source Contribution Tracker</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>GitHub Contribution Tracker</h1>
+
+    <form method="POST">
+
+        <input type="text"
+               name="username"
+               placeholder="Enter GitHub Username"
+               required>
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    {% if user %}
+
+    <div class="profile">
+
+        <img src="{{ user.avatar_url }}"
+             width="120">
+
+        <h2>{{ user.name }}</h2>
+
+        <p>Username: {{ user.login }}</p>
+
+        <p>Followers: {{ user.followers }}</p>
+
+        <p>Public Repos: {{ user.public_repos }}</p>
+
+        <p>Bio: {{ user.bio }}</p>
+
+    </div>
+
+    <h2>Repositories</h2>
+
+    <div class="repo-container">
+
+        {% for repo in repos %}
+
+        <div class="repo-card">
+
+            <h3>{{ repo.name }}</h3>
+
+            <p>{{ repo.description }}</p>
+
+            <p>⭐ Stars: {{ repo.stargazers_count }}</p>
+
+            <p>🍴 Forks: {{ repo.forks_count }}</p>
+
+            <a href="{{ repo.html_url }}"
+               target="_blank">
+               View Repository
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
